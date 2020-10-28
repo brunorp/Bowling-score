@@ -25,7 +25,7 @@ namespace BowlingGame
             }            
         }
 
-        //Calculates the total score, check for strikes and spares and deal with it
+        //Calculates the total score
         public int TotalScore()
         {
             if (plays.Count == 0)
@@ -51,7 +51,8 @@ namespace BowlingGame
             return totalOfPoints;
         }
 
-        public string VerifyScoreType(int index) 
+        //check for strikes and spares and return the type of score
+        private string VerifyScoreType(int index) 
         {
             if (plays[index] == 10)
             {
