@@ -6,12 +6,15 @@ namespace BowlingGame
     public class BowlingGame
     {
         private List<int> plays = new List<int>();
-       
+
         private int currentPlay = 0;
+
+        private List<int> score = new List<int>();
+
 
         //Make the moves by entering the number of bowling pins that have been dropped in a list
         public void Play(int bowlingPins)
-        {   
+        {
             if (bowlingPins == 10)
             {
                 plays.Insert(currentPlay, bowlingPins);
@@ -22,10 +25,36 @@ namespace BowlingGame
             {
                 plays.Insert(currentPlay, bowlingPins);
                 currentPlay += 1;
-            }            
+            }
         }
 
         //Calculates the total score
+        public int TotalScore(int frame)
+        {
+            if (plays.Count == 0)
+                return 0;
+
+            int totalOfPoints = 0;
+            int index = 0; //index of moves
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (VerifyScoreType(index) == "multiple strike")
+                    totalOfPoints += (10 + plays[index + 2] + plays[index + 4]);
+                else if (VerifyScoreType(index) == "strike")
+                    totalOfPoints += (10 + plays[index + 2] + plays[index + 3]);
+                else if (VerifyScoreType(index) == "spare")
+                    totalOfPoints += (10 + plays[index + 2]);
+                else
+                    totalOfPoints += plays[index] + plays[index + 1];
+
+                score.Add(totalOfPoints);
+                index += 2;
+            }
+
+            return score[frame];
+        }
+
         public int TotalScore()
         {
             if (plays.Count == 0)
@@ -34,21 +63,26 @@ namespace BowlingGame
             int totalOfPoints = 0;
             int index = 0; //index of moves
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
-                if(VerifyScoreType(index) == "multiple strike")  
+                if (VerifyScoreType(index) == "multiple strike")
                     totalOfPoints += (10 + plays[index + 2] + plays[index + 4]);
-                else if(VerifyScoreType(index) == "strike")
+                else if (VerifyScoreType(index) == "strike")
                     totalOfPoints += (10 + plays[index + 2] + plays[index + 3]);
                 else if (VerifyScoreType(index) == "spare")
                     totalOfPoints += (10 + plays[index + 2]);
                 else
                     totalOfPoints += plays[index] + plays[index + 1];
-                
+
                 index += 2;
             }
-            
+
             return totalOfPoints;
+        }
+
+        public int ScorePerFrame(int frame)
+        {
+            return score[frame];
         }
 
         //check for strikes and spares and return the type of score
