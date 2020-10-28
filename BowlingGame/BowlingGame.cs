@@ -80,11 +80,6 @@ namespace BowlingGame
             return totalOfPoints;
         }
 
-        public int ScorePerFrame(int frame)
-        {
-            return score[frame];
-        }
-
         //check for strikes and spares and return the type of score
         private string VerifyScoreType(int index) 
         {
