@@ -55,31 +55,6 @@ namespace BowlingGame
             return score[frame];
         }
 
-        public int TotalScore()
-        {
-            if (plays.Count == 0)
-                return 0;
-
-            int totalOfPoints = 0;
-            int index = 0; //index of moves
-
-            for (int i = 0; i < 10; i++)
-            {
-                if (VerifyScoreType(index) == "multiple strike")
-                    totalOfPoints += (10 + plays[index + 2] + plays[index + 4]);
-                else if (VerifyScoreType(index) == "strike")
-                    totalOfPoints += (10 + plays[index + 2] + plays[index + 3]);
-                else if (VerifyScoreType(index) == "spare")
-                    totalOfPoints += (10 + plays[index + 2]);
-                else
-                    totalOfPoints += plays[index] + plays[index + 1];
-
-                index += 2;
-            }
-
-            return totalOfPoints;
-        }
-
         //check for strikes and spares and return the type of score
         private string VerifyScoreType(int index) 
         {
