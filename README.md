@@ -13,7 +13,3 @@ a partir dessa verificação, é calculado o total de pontos de acordo com o tip
     2. Quando é feito 2 ou mais strikes em sequência, a pontuação é a soma de 10 + 10 + a primeira jogada do frame em sequência.
 2. Spare: Quando todos os pinos são derrubados em 2 jogadas consecutivas. 
     1. Quando é feito um spare, a pontuação é a soma de 10 com a primeira jogada do próximo frame.
-
-## Para fazer
-
-* Função para calcular a pontuação a cada rodada.
