@@ -64,6 +64,22 @@ namespace BowlingGame.Tests
         }
 
         [Fact]
+        private void OnlyOneFrame()
+        {
+            var game = new BowlingGame();
+            PlayFrame(5, 1, game);
+            Assert.Equal(6, game.TotalScore(0));
+        }
+
+        [Fact]
+        private void OnlyOnePlay()
+        {
+            var game = new BowlingGame();
+            game.Play(7);
+            Assert.Equal(7, game.TotalScore(0));
+        }
+
+        [Fact]
         private void StrikeTest()
         {
             var game = new BowlingGame();

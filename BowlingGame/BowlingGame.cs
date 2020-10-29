@@ -9,9 +9,6 @@ namespace BowlingGame
 
         private int currentPlay = 0;
 
-        private List<int> score = new List<int>();
-
-
         //Make the moves by entering the number of bowling pins that have been dropped in a list
         public void Play(int bowlingPins)
         {
@@ -34,19 +31,28 @@ namespace BowlingGame
             if (plays.Count == 0)
                 return 0;
 
+            if (currentPlay == 1)
+                return plays[0];
+
+            List<int> score = new List<int>();
             int totalOfPoints = 0;
             int index = 0; //index of moves
 
             for (int i = 0; i < 10; i++)
             {
-                if (VerifyScoreType(index) == "multiple strike")
-                    totalOfPoints += (10 + plays[index + 2] + plays[index + 4]);
-                else if (VerifyScoreType(index) == "strike")
-                    totalOfPoints += (10 + plays[index + 2] + plays[index + 3]);
-                else if (VerifyScoreType(index) == "spare")
-                    totalOfPoints += (10 + plays[index + 2]);
+                if(index < currentPlay)
+                {
+                    if (VerifyScoreType(index) == "multiple strike")
+                        totalOfPoints += (10 + plays[index + 2] + plays[index + 4]);
+                    else if (VerifyScoreType(index) == "strike")
+                        totalOfPoints += (10 + plays[index + 2] + plays[index + 3]);
+                    else if (VerifyScoreType(index) == "spare")
+                        totalOfPoints += (10 + plays[index + 2]);
+                    else
+                        totalOfPoints += plays[index] + plays[index + 1];
+                }
                 else
-                    totalOfPoints += plays[index] + plays[index + 1];
+                    return score[frame];
 
                 score.Add(totalOfPoints);
                 index += 2;
