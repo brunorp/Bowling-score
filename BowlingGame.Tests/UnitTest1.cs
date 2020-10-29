@@ -37,7 +37,14 @@ namespace BowlingGame.Tests
         {
             var game = new BowlingGame();
             PlaySequence(20, 0, game);
-            Assert.Equal(0, game.TotalScore());
+            Assert.Equal(0, game.TotalScore(9));
+        }
+
+        [Fact]
+        private void NullTest()
+        {
+            var game = new BowlingGame();
+            Assert.Equal(0, game.TotalScore(9));
         }
 
         [Fact]
@@ -45,7 +52,7 @@ namespace BowlingGame.Tests
         {
             var game = new BowlingGame();
             PlaySequence(20, 1, game);
-            Assert.Equal(20, game.TotalScore());
+            Assert.Equal(20, game.TotalScore(9));
         }
 
         [Fact]
@@ -53,7 +60,7 @@ namespace BowlingGame.Tests
         {
             var game = new BowlingGame();
             PlaySequence(12, 10, game);
-            Assert.Equal(300, game.TotalScore());
+            Assert.Equal(300, game.TotalScore(9));
         }
 
         [Fact]
@@ -63,7 +70,7 @@ namespace BowlingGame.Tests
             Strike(game);
             PlayFrame(5, 3, game);
             PlaySequence(17, 0, game);
-            Assert.Equal(26, game.TotalScore());
+            Assert.Equal(26, game.TotalScore(9));
         }
 
         [Fact]
@@ -73,7 +80,7 @@ namespace BowlingGame.Tests
             Spare(game);
             game.Play(3);
             PlaySequence(17, 0, game);
-            Assert.Equal(16, game.TotalScore());
+            Assert.Equal(16, game.TotalScore(9));
         }
 
         [Fact]
@@ -83,7 +90,7 @@ namespace BowlingGame.Tests
             Strike(game);
             Spare(game);
             PlaySequence(17, 0, game);
-            Assert.Equal(30, game.TotalScore());
+            Assert.Equal(30, game.TotalScore(9));
         }
 
         [Fact]
@@ -100,7 +107,7 @@ namespace BowlingGame.Tests
             Spare(game);
             PlayFrame(5, 2, game);
             PlayFrame(0, 7, game);
-            Assert.Equal(97, game.TotalScore());
+            Assert.Equal(97, game.TotalScore(9));
         }
 
         private void PlaySequence(int numberOfPlays, int bowlingPins, BowlingGame game)
