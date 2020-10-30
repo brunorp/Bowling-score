@@ -12,17 +12,15 @@ namespace BowlingGame
         //Make the moves by entering the number of bowling pins that have been dropped in a list
         public void Play(int bowlingPins)
         {
+            plays.Insert(currentPlay, bowlingPins);
+
             if (bowlingPins == 10)
             {
-                plays.Insert(currentPlay, bowlingPins);
                 plays.Insert(currentPlay + 1, 0);
                 currentPlay += 2;
             }
             else
-            {
-                plays.Insert(currentPlay, bowlingPins);
                 currentPlay += 1;
-            }
         }
 
         //Calculates the total score

@@ -105,8 +105,8 @@ namespace BowlingGame.Tests
             var game = new BowlingGame();
             Strike(game);
             Spare(game);
-            PlaySequence(17, 0, game);
-            Assert.Equal(30, game.TotalScore(9));
+            PlayFrame(3, 4, game);
+            Assert.Equal(40, game.TotalScore(2));
         }
 
         [Fact]
@@ -134,10 +134,10 @@ namespace BowlingGame.Tests
             }
         }
 
-        private void PlayFrame(int bowlingPins, int pins, BowlingGame game)
+        private void PlayFrame(int droppedPinsPlay1, int droppedPinsPlay2, BowlingGame game)
         {
-            game.Play(bowlingPins);
-            game.Play(pins);
+            game.Play(droppedPinsPlay1);
+            game.Play(droppedPinsPlay2);
         }
 
         private void Strike(BowlingGame game)
