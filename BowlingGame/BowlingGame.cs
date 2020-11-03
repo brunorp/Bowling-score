@@ -5,18 +5,18 @@ namespace BowlingGame
 {
     public class BowlingGame
     {
-        private List<int> plays = new List<int>();
+        private int[] plays = new int[24];
 
         private int currentPlay = 0;
 
         //Make the moves by entering the number of bowling pins that have been dropped in a list
         public void Play(int bowlingPins)
         {
-            plays.Insert(currentPlay, bowlingPins);
+            plays[currentPlay] = bowlingPins;
 
             if (bowlingPins == 10)
             {
-                plays.Insert(currentPlay + 1, 0);
+                plays[currentPlay + 1] = 0;
                 currentPlay += 2;
             }
             else
@@ -26,11 +26,8 @@ namespace BowlingGame
         //Calculates the total score
         public int TotalScore(int frame)
         {
-            if (plays.Count == 0)
+            if (plays.Length == 0)
                 return 0;
-
-            if (currentPlay == 1)
-                return plays[0];
 
             List<int> score = new List<int>();
             int totalOfPoints = 0;
@@ -38,19 +35,14 @@ namespace BowlingGame
 
             for (int i = 0; i < 10; i++)
             {
-                if(index < currentPlay)
-                {
-                    if (VerifyScoreType(index) == "multiple strike")
-                        totalOfPoints += (10 + plays[index + 2] + plays[index + 4]);
-                    else if (VerifyScoreType(index) == "strike")
-                        totalOfPoints += (10 + plays[index + 2] + plays[index + 3]);
-                    else if (VerifyScoreType(index) == "spare")
-                        totalOfPoints += (10 + plays[index + 2]);
-                    else
-                        totalOfPoints += plays[index] + plays[index + 1];
-                }
+                if (VerifyScoreType(index) == "multiple strike")
+                    totalOfPoints += MultipleStrikeBonus(index);
+                else if (VerifyScoreType(index) == "strike")
+                    totalOfPoints += StrikeBonus(index);
+                else if (VerifyScoreType(index) == "spare")
+                    totalOfPoints += SpareBonus(index);
                 else
-                    return score[frame];
+                    totalOfPoints += SumOfPinsInFrame(index);
 
                 score.Add(totalOfPoints);
                 index += 2;
@@ -60,7 +52,7 @@ namespace BowlingGame
         }
 
         //check for strikes and spares and return the type of score
-        private string VerifyScoreType(int index) 
+        private string VerifyScoreType(int index)
         {
             if (plays[index] == 10)
             {
@@ -73,6 +65,26 @@ namespace BowlingGame
                 return "spare";
             else
                 return "normal";
+        }
+
+        private int MultipleStrikeBonus(int index)
+        {
+            return 10 + plays[index + 2] + plays[index + 4];
+        }
+
+        private int StrikeBonus(int index)
+        {
+            return 10 + plays[index + 2] + plays[index + 3];
+        }
+
+        private int SpareBonus(int index)
+        {
+            return 10 + plays[index + 2];
+        }
+
+        private int SumOfPinsInFrame(int index)
+        {
+            return plays[index] + plays[index + 1];
         }
     }
 }
