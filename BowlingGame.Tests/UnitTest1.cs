@@ -6,20 +6,27 @@ namespace BowlingGame.Tests
 {
     public class ScoreTests
     {
+
+        BowlingGame game;
+
+        public ScoreTests()
+        {
+            game = new BowlingGame();
+        }
+
         [Fact]
         private void CompleteGameFramesScoreTest()
         {
-            var game = new BowlingGame();
-            Spare(game);
-            PlayFrame(3, 1, game);
-            Strike(game);
-            Strike(game);
-            PlayFrame(5, 1, game);
-            Strike(game);
-            PlayFrame(2, 1, game);
-            Spare(game);
-            Spare(game);
-            PlayFrame(6, 1, game);
+            Spare();
+            PlayFrame(3, 1);
+            Strike();
+            Strike();
+            PlayFrame(5, 1);
+            Strike();
+            PlayFrame(2, 1);
+            Spare();
+            Spare();
+            PlayFrame(6, 1);
             Assert.Equal(13, game.TotalScore(0));
             Assert.Equal(17, game.TotalScore(1));
             Assert.Equal(42, game.TotalScore(2));
@@ -35,46 +42,40 @@ namespace BowlingGame.Tests
         [Fact]
         private void AllZeroTest()
         {
-            var game = new BowlingGame();
-            PlaySequence(20, 0, game);
+            PlaySequence(20, 0);
             Assert.Equal(0, game.TotalScore(9));
         }
 
         [Fact]
         private void NullTest()
         {
-            var game = new BowlingGame();
             Assert.Equal(0, game.TotalScore(9));
         }
 
         [Fact]
         private void AllOneTest()
         {
-            var game = new BowlingGame();
-            PlaySequence(20, 1, game);
+            PlaySequence(20, 1);
             Assert.Equal(20, game.TotalScore(9));
         }
 
         [Fact]
         private void PerfectGame()
         {
-            var game = new BowlingGame();
-            PlaySequence(12, 10, game);
+            PlaySequence(12, 10);
             Assert.Equal(300, game.TotalScore(9));
         }
 
         [Fact]
         private void OnlyOneFrame()
         {
-            var game = new BowlingGame();
-            PlayFrame(5, 1, game);
+            PlayFrame(5, 1);
             Assert.Equal(6, game.TotalScore(0));
         }
 
         [Fact]
         private void OnlyOnePlay()
         {
-            var game = new BowlingGame();
             game.Play(7);
             Assert.Equal(7, game.TotalScore(0));
         }
@@ -82,51 +83,47 @@ namespace BowlingGame.Tests
         [Fact]
         private void StrikeTest()
         {
-            var game = new BowlingGame();
-            Strike(game);
-            PlayFrame(5, 3, game);
-            PlaySequence(17, 0, game);
+            Strike();
+            PlayFrame(5, 3);
+            PlaySequence(17, 0);
             Assert.Equal(26, game.TotalScore(9));
         }
 
         [Fact]
         private void SpareTest()
         {
-            var game = new BowlingGame();
-            Spare(game);
+            Spare();
             game.Play(3);
-            PlaySequence(17, 0, game);
+            PlaySequence(17, 0);
             Assert.Equal(16, game.TotalScore(9));
         }
 
         [Fact]
         private void StrikeAndSpareTest()
         {
-            var game = new BowlingGame();
-            Strike(game);
-            Spare(game);
-            PlayFrame(3, 4, game);
+            Strike();
+            Spare();
+            PlayFrame(3, 4);
             Assert.Equal(40, game.TotalScore(2));
         }
 
         [Fact]
         private void CompleteGame()
         {
-            var game = new BowlingGame();
-            Spare(game);
-            PlayFrame(3, 1, game);
-            Strike(game);
-            PlayFrame(7, 1, game);
-            PlayFrame(5, 4, game);
-            Strike(game);
-            PlayFrame(2, 1, game);
-            Spare(game);
-            PlayFrame(5, 2, game);
-            PlayFrame(0, 7, game);
+            Spare();
+            PlayFrame(3, 1);
+            Strike();
+            PlayFrame(7, 1);
+            PlayFrame(5, 4);
+            Strike();
+            PlayFrame(2, 1);
+            Spare();
+            PlayFrame(5, 2);
+            PlayFrame(0, 7);
             Assert.Equal(97, game.TotalScore(9));
         }
 
-        private void PlaySequence(int numberOfPlays, int bowlingPins, BowlingGame game)
+        private void PlaySequence(int numberOfPlays, int bowlingPins)
         {
             for (int i = 0; i < numberOfPlays; i++)
             {
@@ -134,18 +131,18 @@ namespace BowlingGame.Tests
             }
         }
 
-        private void PlayFrame(int droppedPinsPlay1, int droppedPinsPlay2, BowlingGame game)
+        private void PlayFrame(int droppedPinsPlay1, int droppedPinsPlay2)
         {
             game.Play(droppedPinsPlay1);
             game.Play(droppedPinsPlay2);
         }
 
-        private void Strike(BowlingGame game)
+        private void Strike()
         {
             game.Play(10);
         }
 
-        private void Spare(BowlingGame game)
+        private void Spare()
         {
             game.Play(6);
             game.Play(4);
