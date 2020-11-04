@@ -5,7 +5,7 @@ namespace BowlingGame
 {
     public class BowlingGame
     {
-        private int[] plays = new int[24];
+        private int[] plays = new int[21];
 
         private int currentPlay = 0;
 
@@ -13,14 +13,7 @@ namespace BowlingGame
         public void Play(int bowlingPins)
         {
             plays[currentPlay] = bowlingPins;
-
-            if (bowlingPins == 10)
-            {
-                plays[currentPlay + 1] = 0;
-                currentPlay += 2;
-            }
-            else
-                currentPlay += 1;
+            currentPlay += 1;
         }
 
         //Calculates the total score
@@ -35,19 +28,23 @@ namespace BowlingGame
 
             for (int i = 0; i < 10; i++)
             {
-                if (VerifyScoreType(index) == "multiple strike")
-                    totalOfPoints += MultipleStrikeBonus(index);
-                else if (VerifyScoreType(index) == "strike")
+                if (VerifyScoreType(index) == "strike")
+                {
                     totalOfPoints += StrikeBonus(index);
+                    index++;
+                }        
                 else if (VerifyScoreType(index) == "spare")
+                {
                     totalOfPoints += SpareBonus(index);
+                    index += 2;
+                }
                 else
+                {
                     totalOfPoints += SumOfPinsInFrame(index);
-
+                    index += 2;
+                }
                 score.Add(totalOfPoints);
-                index += 2;
             }
-
             return score[frame];
         }
 
@@ -56,10 +53,7 @@ namespace BowlingGame
         {
             if (plays[index] == 10)
             {
-                if (plays[index + 2] == 10)
-                    return "multiple strike";
-                else
-                    return "strike";
+                return "strike";
             }
             else if (plays[index] + plays[index + 1] == 10)
                 return "spare";
@@ -67,14 +61,9 @@ namespace BowlingGame
                 return "normal";
         }
 
-        private int MultipleStrikeBonus(int index)
-        {
-            return 10 + plays[index + 2] + plays[index + 4];
-        }
-
         private int StrikeBonus(int index)
         {
-            return 10 + plays[index + 2] + plays[index + 3];
+            return 10 + plays[index + 1] + plays[index + 2];
         }
 
         private int SpareBonus(int index)
