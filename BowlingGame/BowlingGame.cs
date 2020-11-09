@@ -5,7 +5,7 @@ namespace BowlingGame
 {
     public class BowlingGame
     {
-        private int[] plays = new int[21];
+        private readonly int[] plays = new int[21];
 
         private int currentPlay = 0;
 
